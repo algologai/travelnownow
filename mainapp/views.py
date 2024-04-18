@@ -9,4 +9,13 @@ def index(request):
         'course_provider':'Qudroid'
       }
     
-    return Response(courses)  
+    
+    if request.method == 'GET':
+        print("this is get method")
+        return Response(courses) 
+    if request.method == 'POST':
+        return Response(courses)
+    if request.method == 'PUT':
+        return Response(courses)
+    if request.method == 'POST':
+        return Response(courses)

@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from  django.contrib.auth  import authenticate
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.authtoken.models import Token
 
 
@@ -13,12 +15,16 @@ class LoginAPI(APIView):
     def post(self, request):
         data = request.data
         serializer = LoginSerializer(data=data)
+        print(serializer)
         if serializer.is_valid():
-            email = serializer.data['email']
+            username = serializer.data['username']
+            print(serializer.data['username'])
             password = serializer.data['password']
-            user = authenticate(username=email, password=password)
+            user = authenticate(username=username, password=password)
+        
             if user:
                 token, _ = Token.objects.get_or_create(user=user)
+             
                 return Response({'status':True,'message':'Login success','token':str(token)}, status=status.HTTP_200_OK)
             
             else:
@@ -40,5 +46,7 @@ class RegisterAPI(APIView):
             return Response({'status': True,'message':'User created'}, status=status.HTTP_201_CREATED)
         else:
             return Response({'status':False,'message':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+    
 
    

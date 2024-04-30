@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from mainapp.serializers import LoginSerializer, RegisterSerializer
+from mainapp.serializers import LoginSerializer, RegisterSerializer,AllUsersSerialzer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,10 +15,8 @@ class LoginAPI(APIView):
     def post(self, request):
         data = request.data
         serializer = LoginSerializer(data=data)
-        print(serializer)
         if serializer.is_valid():
             username = serializer.data['username']
-            print(serializer.data['username'])
             password = serializer.data['password']
             user = authenticate(username=username, password=password)
         
@@ -46,6 +44,16 @@ class RegisterAPI(APIView):
             return Response({'status': True,'message':'User created'}, status=status.HTTP_201_CREATED)
         else:
             return Response({'status':False,'message':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        
+class AllUsersAPI(APIView):
+    def get(self, request):
+       obj = User.objects.all()
+       serializer = AllUsersSerialzer(obj, many=True) 
+       return Response({'status': True,'data':serializer.data}, status=status.HTTP_201_CREATED)
+        
+    
         
     
 

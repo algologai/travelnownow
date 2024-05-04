@@ -27,7 +27,7 @@ class LoginAPI(APIView):
                 return Response({'status':True,'message':'Login success','token':str(token)}, status=status.HTTP_200_OK)
             
             else:
-                return Response({'status':False,'message':'Login failed','token':str(token)}, status=status.HTTP_200_OK)
+                return Response({'status':False,'message':'Incorrect Login Details','token':str(token)}, status=status.HTTP_200_OK)
         else:
             return Response({'status':False,'message':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     

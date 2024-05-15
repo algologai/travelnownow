@@ -1,29 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
+from mainapp.models import BioData
+
        
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
     
-    # def validate(self,data):
-    #     if data['username'] and data['password']:
-    #         if User.objects.filter(username=data['username'],password=data['password']).exists():
-    #             return data
-    #         else:
-    #             raise serializers.ValidationError('Invalid username or password')
-    #     else:
-    #         raise serializers.ValidationError('username and password are required')
-        
-    # def create(self,validated_data):
-    #     return validated_data
-    
-    # def update(self,instance,validated_data):
-    #     instance.username = validated_data.get('username',instance.username)
-    #     instance.password = validated_data.get('password',instance.password)
-    #     instance.save()
-    #     return instance
-    
+
        
 class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -59,11 +44,54 @@ class RegisterSerializer(serializers.Serializer):
         return instance
 
 
+
+class BiodataSerializer(serializers.Serializer):
+    # user_id = serializers.CharField()
+    phone = serializers.CharField()
+    address = serializers.CharField()
+    city = serializers.CharField()
+    state = serializers.CharField()
+    country = serializers.CharField()
+    zip_code = serializers.CharField()
+    # date_of_birth =serializers.DateField
+    
+    
+    def create(self, validated_data):
+        # biodata = BioData.objects.create(phone=validated_data['phone']
+        #                                  ,address=validated_data['address']
+        #                                  ,city=validated_data['city']
+        #                                  ,state=validated_data['state']
+        #                                  ,country=validated_data['country']
+        #                                  ,zip_code=validated_data['zip_code'])
+        # return validated_data
+        
+        return BioData.ob.create(**validated_data)
+    
+    
+    def update(self, instance, validated_data):
+            print(validated_data.get('phone',instance.phone))
+            instance.phone = validated_data.get('phone',instance.phone)
+            instance.address = validated_data.get('address',instance.address)
+            instance.city = validated_data.get('city',instance.city)
+            instance.state = validated_data.get('state',instance.state)
+            instance.country = validated_data.get('country',instance.country)
+            instance.zip_code = validated_data.get('zip_code',instance.zip_code)
+            instance.save()
+            return instance
+        
+    
+
+            
+    
 class AllUsersSerialzer(serializers.ModelSerializer):
    
         class  Meta:
            model = User
-           fields = ['username']
-    
+           fields = ['username','id']
+class AllBiodataSerialzer(serializers.ModelSerializer):
+   
+        class  Meta:
+           model = BioData
+           fields = '__all__'
     
        

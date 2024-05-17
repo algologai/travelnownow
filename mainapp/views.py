@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+import json
 from mainapp.models import BioData
 from mainapp.serializers import AllBiodataSerialzer, BiodataSerializer, LoginSerializer, RegisterSerializer,AllUsersSerialzer
 from django.http import Http404
@@ -45,7 +46,7 @@ class RegisterAPI(APIView):
             user.save()
             biodata = BioData.objects.create(user_id=user.id)
             biodata.save()
-            return Response({'status': True,'message':'User created'}, status=status.HTTP_201_CREATED)
+            return Response({'status': True,'message':'User created'}, status=status.HTTP_200_OK)
         else:
             return Response({'status':False,'message':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         

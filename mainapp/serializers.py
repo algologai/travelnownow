@@ -16,13 +16,13 @@ class RegisterSerializer(serializers.Serializer):
     password = serializers.CharField()
     
     def validate(self, data):
-        if data['username']:
-            if User.objects.filter(username=data['username']).exists():
-                raise serializers.ValidationError('Username already choosen')
-            
         if data['email']:
             if User.objects.filter(email=data['email']).exists():
-                raise serializers.ValidationError('Email already choosen')
+                raise serializers.ValidationError('Email already registered')
+            
+        if data['username']:
+            if User.objects.filter(username=data['username']).exists():
+                raise serializers.ValidationError('Username already registered')
             
         return data
         

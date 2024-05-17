@@ -8,6 +8,7 @@ import 'package:reminderapp/viewmodels/auth_view_model.dart';
 import 'package:reminderapp/views/screens/reset_password.dart';
 import 'package:reminderapp/views/screens/signup.dart';
 import 'package:reminderapp/theme.dart';
+import 'package:reminderapp/views/widgets/login_option.dart';
 import 'package:reminderapp/views/widgets/primary_button.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LogInScreenState extends State<LogInScreen> {
     final authViewModel = Provider.of<AuthViewModel>(context);
     bool _isObscure = true;
     final formKey = GlobalKey<FormState>();
-   //final loginviewModel = Provider.of<LoginViewModel>(context);
+    //final loginviewModel = Provider.of<LoginViewModel>(context);
 
     Map<String, IconData> iconMapping = {
       'person': Icons.person,
@@ -62,7 +63,6 @@ class _LogInScreenState extends State<LogInScreen> {
                 const SizedBox(
                   height: 5,
                 ),
-
                 const SizedBox(
                   height: 40,
                 ),
@@ -145,7 +145,6 @@ class _LogInScreenState extends State<LogInScreen> {
                             : null),
                   ),
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
@@ -168,7 +167,6 @@ class _LogInScreenState extends State<LogInScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 GestureDetector(
                   onTap: () {
                     if (_usernameController.text.isEmpty) {
@@ -197,14 +195,13 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
                 Row(
                   children: [
                     Text(
-                      'New to this app?',
+                      'Not Registered ?',
                       style: subTitle,
                     ),
                     const SizedBox(
@@ -228,10 +225,17 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ],
                 ),
-                // Text(
-                //   'Or log in with:',
-                //   style: subTitle.copyWith(color: kBlackColor),
-                // ),
+                Text(
+                  'Or log in with:',
+                  style: subTitle.copyWith(color: kBlackColor),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: LoginOption(),
+                ),
                 const SizedBox(
                   height: 60,
                 ),

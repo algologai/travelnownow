@@ -268,10 +268,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // ignore: prefer_const_constructors
               Padding(
                 padding: kDefaultPadding,
-                // child: Text(
-                //   'Or log in with:',
-                //   style: subTitle.copyWith(color: kBlackColor),
-                // ),
+                child: Text(
+                  'Or log in with:',
+                  style: subTitle.copyWith(color: kBlackColor),
+                ),
               ),
               const SizedBox(
                 height: 20,
